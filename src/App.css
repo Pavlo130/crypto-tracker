@@ -1,0 +1,539 @@
+/* =========================================
+   1. ЗМІННІ ТА БАЗОВІ НАЛАШТУВАННЯ (THEME)
+========================================= */
+:root {
+  --bg-main: #0b0f19;
+  --bg-card: rgba(30, 41, 59, 0.6);
+  --bg-card-hover: rgba(30, 41, 59, 0.85);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(34, 197, 94, 0.5);
+  
+  --primary: #22c55e;
+  --primary-glow: rgba(34, 197, 94, 0.35);
+  --primary-gradient: linear-gradient(135deg, #22c55e 0%, #10b981 50%, #06b6d4 100%);
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.25);
+  --shadow-glow: 0 0 25px var(--primary-glow), 0 10px 30px rgba(0, 0, 0, 0.5);
+  
+  --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-main);
+  background-image: 
+    radial-gradient(circle at 15% 20%, rgba(34, 197, 94, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 40%);
+  background-attachment: fixed;
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* =========================================
+   2. ГОЛОВНА СТОРІНКА (HOME)
+========================================= */
+.home {
+  min-height: 100vh;
+  padding: 50px 25px;
+  max-width: 1400px;
+  margin: 0 auto;
+  /* Прибираємо будь-які випадкові рамки зі стандартних шаблонів */
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Виправлено зрізання верхівки заголовка */
+.title {
+  text-align: center;
+  font-size: 3.5rem;
+  margin-bottom: 35px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+  padding: 10px 0;
+  overflow: visible;
+  background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.search {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  color: white;
+  font-size: 16px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.search::placeholder {
+  color: var(--text-muted);
+}
+
+.search:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: rgba(30, 41, 59, 0.9);
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15), 0 10px 25px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   3. ФІЛЬТРИ ТА КНОПКИ
+========================================= */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 35px 0;
+  flex-wrap: wrap;
+}
+
+.filters button,
+.chart-buttons button,
+.back-btn {
+  padding: 12px 24px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-card);
+  backdrop-filter: blur(8px);
+  color: var(--text-main);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.filters button:hover,
+.chart-buttons button:hover,
+.back-btn:hover {
+  background: var(--primary-gradient);
+  border-color: transparent;
+  color: #fff;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 20px var(--primary-glow);
+}
+
+/* Активна (натиснута) кнопка фільтра */
+.filters button.active,
+.chart-buttons button.active {
+  background: var(--primary-gradient);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 8px 20px var(--primary-glow);
+}
+
+.filters button:active,
+.chart-buttons button:active,
+.back-btn:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* =========================================
+   4. СІТКА ТА КАРТКИ МОНЕТ (GLASSMORPHISM)
+========================================= */
+.coin-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.coin-link {
+  display: block;
+}
+
+.coin-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 28px 24px;
+  transition: var(--transition);
+  text-align: center;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.coin-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background: var(--primary-gradient);
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.coin-card:hover {
+  transform: translateY(-8px);
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-glow);
+}
+
+.coin-card:hover::before {
+  opacity: 1;
+  width: 100%;
+}
+
+.coin-card img {
+  width: 76px;
+  height: 76px;
+  margin-bottom: 18px;
+  transition: var(--transition);
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+}
+
+.coin-card:hover img {
+  transform: scale(1.12) rotate(5deg);
+}
+
+.coin-card h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.coin-card p:nth-of-type(1) {
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}
+
+.coin-card p:nth-of-type(2) {
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #fff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 4px;
+}
+
+.coin-card::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  margin-top: 16px;
+}
+
+/* =========================================
+   5. СТАТУСИ (ЗАВАНТАЖЕННЯ, ПОМИЛКИ)
+========================================= */
+.empty, .loading {
+  text-align: center;
+  color: var(--text-muted);
+  margin-top: 80px;
+  font-size: 22px;
+  font-weight: 500;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.error {
+  text-align: center;
+  color: #f87171;
+  margin-top: 60px;
+  font-size: 18px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  padding: 20px;
+  border-radius: 16px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =========================================
+   6. СТОРІНКА МОНЕТИ ТА ГРАФІКИ
+========================================= */
+.coin-page {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 40px 25px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.coin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 30px;
+  border-radius: 24px;
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-sm);
+}
+
+.coin-header img {
+  width: 90px;
+  height: 90px;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
+}
+
+.coin-header h1 {
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.coin-header p {
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.coin-info {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.info-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 24px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.info-card:hover {
+  transform: translateY(-6px);
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-glow);
+}
+
+.info-card span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.info-card h3 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.chart-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 40px 0 30px;
+  flex-wrap: wrap;
+}
+
+.chart-container {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 30px 20px;
+  min-height: 550px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.chart-container:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.recharts-wrapper {
+  font-size: 13px;
+}
+
+.recharts-cartesian-grid line {
+  stroke: rgba(255, 255, 255, 0.05) !important;
+}
+
+.recharts-tooltip-wrapper {
+  outline: none;
+}
+
+.recharts-default-tooltip {
+  background: rgba(15, 23, 42, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid var(--primary) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--shadow-glow) !important;
+  padding: 12px 16px !important;
+}
+
+.recharts-tooltip-label {
+  color: var(--text-muted) !important;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.recharts-text {
+  fill: var(--text-muted);
+}
+
+/* =========================================
+   7. СКРОЛБАР ТА АНІМАЦІЇ
+========================================= */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 10px;
+  border: 2px solid var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+::selection {
+  background: var(--primary);
+  color: white;
+  text-shadow: 0 0 8px rgba(255,255,255,0.8);
+}
+
+.fade,
+.coin-card,
+.info-card,
+.chart-container,
+.back-btn,
+.chart-buttons button {
+  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* =========================================
+   8. АДАПТИВНІСТЬ (MEDIA QUERIES)
+========================================= */
+@media (max-width: 1100px) {
+  .coin-info {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+  .coin-list {
+    grid-template-columns: 1fr;
+  }
+  .coin-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    padding: 24px;
+  }
+  .coin-header h1 {
+    font-size: 32px;
+  }
+  .coin-info {
+    grid-template-columns: 1fr;
+  }
+  .chart-container {
+    padding: 15px 5px;
+    min-height: 400px;
+  }
+  .chart-buttons button {
+    flex: 1;
+    min-width: 110px;
+  }
+}
+
+@media (max-width: 500px) {
+  .home, .coin-page {
+    padding: 25px 15px;
+  }
+  .title {
+    font-size: 2rem;
+  }
+  .coin-card {
+    padding: 24px 18px;
+  }
+  .search {
+    padding: 14px 18px;
+    font-size: 15px;
+  }
+}
